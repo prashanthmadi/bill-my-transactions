@@ -46,7 +46,7 @@ public class AddIndividual extends Activity {
 	}
 
 	public void onDataSubmit(View v) {
-		IndividualDataDAO individualDataDao =  new IndividualDataDAO();
+		IndividualDataDAO individualDataDao =  new IndividualDataDAO(this);
 		indivDetailCargo.setFirstName(firstName.getText().toString());
 		indivDetailCargo.setLastName(lastName.getText().toString());
 		indivDetailCargo.setEmailId(emailId.getText().toString());

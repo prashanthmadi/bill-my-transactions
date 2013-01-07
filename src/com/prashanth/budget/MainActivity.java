@@ -36,15 +36,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.addIndv:
-
+			Intent addIndividualIntent = new Intent(this, AddIndividual.class);
+			startActivity(addIndividualIntent);
 			break;
 
 		case R.id.newBillButton:
-
+			Intent newBillButtonIntent = new Intent(this, AddIndividual.class);
 			break;
-
 		}
-
 	}
 
 	@Override
