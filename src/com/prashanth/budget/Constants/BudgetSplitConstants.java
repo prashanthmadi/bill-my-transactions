@@ -1,5 +1,11 @@
 package com.prashanth.budget.Constants;
 
+/**
+ * Contains all the Constant data related to Project
+ * 
+ * @author deepu
+ *
+ */
 public class BudgetSplitConstants {
 
 	public static final int budgetSplitDatabaseVersion = 1;

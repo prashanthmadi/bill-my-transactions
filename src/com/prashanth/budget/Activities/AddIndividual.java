@@ -1,4 +1,4 @@
-package com.prashanth.budget;
+package com.prashanth.budget.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,9 +7,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.prashanth.budget.R;
 import com.prashanth.budget.DAO.IndividualDataDAO;
 import com.prashanth.budget.POJO.IndividualDetailsCargo;
 
+/**
+ * Activity class to add new individual
+ * 
+ * @author deepu
+ *
+ */
 public class AddIndividual extends Activity {
 
 	TextView firstName;
@@ -45,6 +52,11 @@ public class AddIndividual extends Activity {
 
 	}
 
+	/**
+	 * Fires an event on click of submit button while adding an individual
+	 * 
+	 * @param View
+	 */
 	public void onDataSubmit(View v) {
 		IndividualDataDAO individualDataDao =  new IndividualDataDAO(this);
 		indivDetailCargo.setFirstName(firstName.getText().toString());

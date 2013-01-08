@@ -7,6 +7,12 @@ import android.util.Log;
 
 import com.prashanth.budget.Constants.BudgetSplitConstants;
 
+/**
+ * Database Helper class to create tables or database
+ * 
+ * @author deepu
+ *
+ */
 public class BudgetDatabaseHelper extends SQLiteOpenHelper {
 
 	private static final String indivividualDatabaseCreate = "CREATE TABLE "

@@ -1,4 +1,4 @@
-package com.prashanth.budget;
+package com.prashanth.budget.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.prashanth.budget.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -30,6 +32,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
+	 * Fires an event on click of any button
+	 * 
 	 * @param View
 	 */
 	@Override
@@ -41,7 +45,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 
 		case R.id.newBillButton:
-			Intent newBillButtonIntent = new Intent(this, AddIndividual.class);
+			Intent newBillButtonIntent = new Intent(this, AddTransaction.class);
+			startActivity(newBillButtonIntent);
 			break;
 		}
 	}

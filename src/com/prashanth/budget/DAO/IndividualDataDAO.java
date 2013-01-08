@@ -13,6 +13,8 @@ import com.prashanth.budget.Databases.BudgetDatabaseHelper;
 import com.prashanth.budget.POJO.IndividualDetailsCargo;
 
 /**
+ * Database helper class realted to Individual Data
+ * 
  * @author deepu
  * 
  */
@@ -41,6 +43,12 @@ public class IndividualDataDAO {
 		dbHelper.close();
 	}
 
+	/**
+	 * Inserts a new Individual Data into database
+	 * 
+	 * @param indivDetailCargo
+	 * @return boolean
+	 */
 	public boolean insertIndividualData(IndividualDetailsCargo indivDetailCargo) {
 		ContentValues values = new ContentValues();
 		values.put(BudgetSplitConstants.individualFirstName,
@@ -64,6 +72,11 @@ public class IndividualDataDAO {
 		return true;
 	}
 
+	/**
+	 * returns set of users involved
+	 * 
+	 * @return ArrayList<IndividualDetailsCargo>
+	 */
 	public ArrayList<IndividualDetailsCargo> retrieveAllUsersdata() {
 		individualCargoArray = new ArrayList<IndividualDetailsCargo>();
 		Cursor cursor = database.query(
@@ -82,18 +95,44 @@ public class IndividualDataDAO {
 		return individualCargoArray;
 	}
 
+	/**
+	 * Returns single user data based on userId
+	 * 
+	 * @param uniqueUserId
+	 * @return IndividualDetailsCargo
+	 */
 	public IndividualDetailsCargo retrievesingleUserDetail(String uniqueUserId) {
 		Cursor cursor = database.query(
 				BudgetSplitConstants.individualDataTable, null,
 				BudgetSplitConstants.individualUniqueUserId + "="
 						+ uniqueUserId, null, null, null, null);
+		cursor.moveToFirst();
+		if (cursor.getCount() == 0) {
+			return null;
+		}
 		return cursorToIndividualCargo(cursor);
 	}
 
-	public boolean deleateIndividualData(IndividualDetailsCargo indivDetailCargo) {
+	/**
+	 * deletes an individual based on user ID
+	 * 
+	 * @param uniqueUserId
+	 * @return boolean
+	 */
+	public boolean deleateIndividualData(String uniqueUserId) {
+		database.delete(BudgetSplitConstants.individualDataTable,
+				BudgetSplitConstants.individualUniqueUserId + "="
+						+ uniqueUserId, null);
+
 		return true;
 	}
 
+	/**
+	 * Converts cursor to IndivdualDetailsCargo Object
+	 * 
+	 * @param cursor
+	 * @return IndividualDetailsCargo
+	 */
 	private IndividualDetailsCargo cursorToIndividualCargo(Cursor cursor) {
 		IndividualDetailsCargo individualDetailsCargo = new IndividualDetailsCargo();
 		individualDetailsCargo.setUniqueUserId(cursor.getString(0));
