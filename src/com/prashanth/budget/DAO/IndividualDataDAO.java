@@ -1,6 +1,7 @@
 package com.prashanth.budget.DAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,6 +24,7 @@ public class IndividualDataDAO {
 	private SQLiteDatabase database;
 	private BudgetDatabaseHelper dbHelper;
 	ArrayList<IndividualDetailsCargo> individualCargoArray = null;
+	ArrayList<String> individuaNameslList = null;
 
 	public IndividualDataDAO(Context context) {
 		dbHelper = new BudgetDatabaseHelper(context);
@@ -73,6 +75,23 @@ public class IndividualDataDAO {
 	}
 
 	/**
+	 * returns set of users involved as Cursor Object
+	 * 
+	 * @return
+	 */
+	public Cursor retrieveAllUsersdataCursor() {
+		Cursor cursor = database.query(
+				BudgetSplitConstants.individualDataTable, null, null, null,
+				null, null, null);
+		cursor.moveToFirst();
+		if (cursor.getCount() == 0) {
+			return null;
+		}
+
+		return cursor;
+	}
+
+	/**
 	 * returns set of users involved
 	 * 
 	 * @return ArrayList<IndividualDetailsCargo>
@@ -93,6 +112,38 @@ public class IndividualDataDAO {
 		}
 
 		return individualCargoArray;
+	}
+
+	HashMap<String, ArrayList<?>> totalUserDataWithList;
+	ArrayList<String> totalUsersName;
+
+	/**
+	 * returns set of users involved along with a list of total users
+	 * 
+	 * @return ArrayList<IndividualDetailsCargo>
+	 */
+	public HashMap<String, ArrayList<?>> retrieveAllUsersListWithTotalData() {
+		totalUserDataWithList = new HashMap<String, ArrayList<?>>();
+		individualCargoArray = new ArrayList<IndividualDetailsCargo>();
+		totalUsersName = new ArrayList<String>();
+		Cursor cursor = database.query(
+				BudgetSplitConstants.individualDataTable, null, null, null,
+				null, null, null);
+		cursor.moveToFirst();
+		if (cursor.getCount() == 0) {
+			return null;
+		}
+		while (!cursor.isAfterLast()) {
+			individualCargoArray.add(cursorToIndividualCargoWithList(cursor));
+			cursor.moveToNext();
+
+		}
+		totalUserDataWithList.put(BudgetSplitConstants.ONLYUSERSNAME,
+				totalUsersName);
+		totalUserDataWithList.put(BudgetSplitConstants.TOTALINDIVSDATA,
+				individualCargoArray);
+
+		return totalUserDataWithList;
 	}
 
 	/**
@@ -135,6 +186,24 @@ public class IndividualDataDAO {
 	 */
 	private IndividualDetailsCargo cursorToIndividualCargo(Cursor cursor) {
 		IndividualDetailsCargo individualDetailsCargo = new IndividualDetailsCargo();
+		individualDetailsCargo.setUniqueUserId(cursor.getString(0));
+		individualDetailsCargo.setFirstName(cursor.getString(1));
+		individualDetailsCargo.setLastName(cursor.getString(2));
+		individualDetailsCargo.setEmailId(cursor.getString(3));
+		individualDetailsCargo.setPhoneNumber(cursor.getString(4));
+		return individualDetailsCargo;
+	}
+
+	/**
+	 * Converts cursor to IndivdualDetailsCargo Object along with populating a
+	 * new list of user names
+	 * 
+	 * @param cursor
+	 * @return IndividualDetailsCargo
+	 */
+	private IndividualDetailsCargo cursorToIndividualCargoWithList(Cursor cursor) {
+		IndividualDetailsCargo individualDetailsCargo = new IndividualDetailsCargo();
+		totalUsersName.add(cursor.getString(2) + " " + cursor.getString(1));
 		individualDetailsCargo.setUniqueUserId(cursor.getString(0));
 		individualDetailsCargo.setFirstName(cursor.getString(1));
 		individualDetailsCargo.setLastName(cursor.getString(2));

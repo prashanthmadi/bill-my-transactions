@@ -120,10 +120,11 @@ public class TransactionDataDAO {
 		if (cursor.getCount() == 0) {
 			return null;
 		}
-		while (cursor.isAfterLast()) {
+		while (!cursor.isAfterLast()) {
 			transactoinDetailsArray.add(cusorToTransDetailsCargo(cursor));
 			cursor.moveToNext();
 		}
+		Log.w("Budget in DAO", "" + transactoinDetailsArray.size());
 
 		return transactoinDetailsArray;
 	}
@@ -146,7 +147,7 @@ public class TransactionDataDAO {
 		if (cursor.getCount() == 0) {
 			return null;
 		}
-		while (cursor.isAfterLast()) {
+		while (!cursor.isAfterLast()) {
 			transactoinDetailsArray.add(cusorToTransDetailsCargo(cursor));
 			cursor.moveToNext();
 		}

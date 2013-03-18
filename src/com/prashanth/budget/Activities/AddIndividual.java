@@ -15,7 +15,7 @@ import com.prashanth.budget.POJO.IndividualDetailsCargo;
  * Activity class to add new individual
  * 
  * @author deepu
- *
+ * 
  */
 public class AddIndividual extends Activity {
 
@@ -58,14 +58,17 @@ public class AddIndividual extends Activity {
 	 * @param View
 	 */
 	public void onDataSubmit(View v) {
-		IndividualDataDAO individualDataDao =  new IndividualDataDAO(this);
+		IndividualDataDAO individualDataDao = new IndividualDataDAO(this);
+		individualDataDao.open();
 		indivDetailCargo.setFirstName(firstName.getText().toString());
 		indivDetailCargo.setLastName(lastName.getText().toString());
 		indivDetailCargo.setEmailId(emailId.getText().toString());
 		indivDetailCargo.setPhoneNumber(phoneNumber.getText().toString());
 		Log.w("new Individual Details", indivDetailCargo.toString());
-		
+
 		individualDataDao.insertIndividualData(indivDetailCargo);
+		individualDataDao.close();
+		finish();
 	}
 
 	@Override

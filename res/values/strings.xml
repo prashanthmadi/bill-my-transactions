@@ -14,5 +14,13 @@
         <string name="email">Email</string>
         <string name="phone_number">Phone Number</string>
         <string name="submit">Submit</string>
+        <string name="amount_">Amount $</string>
+        <string name="split_type">Split Type</string>
+        <string name="date">Date</string>
+        <string name="sample_date">02/28/2014</string>
+        <string name="sample_Time">20:00</string>
+        <string name="place">Place</string>
+        <string name="participants">Participant(s)</string>
+        <string name="desc">Desc</string>
 
 </resources>
