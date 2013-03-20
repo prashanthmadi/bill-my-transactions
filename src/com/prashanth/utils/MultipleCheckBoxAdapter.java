@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.TextView;
 
 import com.prashanth.budget.R;
 
@@ -34,12 +35,15 @@ public class MultipleCheckBoxAdapter extends ArrayAdapter<String> {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(layoutResourceId, null);
-		CheckBox checkbox = (CheckBox) view.findViewById(R.id.checkBox1);
+		CheckBox checkbox = (CheckBox) view.findViewById(R.id.listCheckBox);
+		TextView textview = (TextView) view.findViewById(R.id.listUserName);
+		textview.setText(input.get(position));
 		final int clickPosition = position;
 		checkbox.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View view) {				
-				clickHelper.clickDelegate(clickPosition,((CheckBox)view).isChecked());
+			public void onClick(View view) {
+				clickHelper.clickDelegate(clickPosition,
+						((CheckBox) view).isChecked());
 			}
 		});
 

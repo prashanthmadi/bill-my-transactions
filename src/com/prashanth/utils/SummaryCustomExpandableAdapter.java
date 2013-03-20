@@ -60,7 +60,7 @@ public class SummaryCustomExpandableAdapter extends BaseExpandableListAdapter {
 				.get(groupPosition).get(BudgetSplitConstants.CHILD)
 				.get(childPosition);
 		TextView userName = (TextView) convertView.findViewById(R.id.userName);
-		userName.setText("55");
+		userName.setText(transactionDetailsCargo.getTransParticipantAmtShare());
 		return convertView;
 	}
 

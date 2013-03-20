@@ -64,7 +64,11 @@ public class MainActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Sets user data.. still need to optimize it
+	 */
 	public void setUserData() {
+		totalData.removeAll(totalData);
 		individualDataDAO = new IndividualDataDAO(context);
 		transactionDataDAO = new TransactionDataDAO(context);
 		individualDataDAO.open();
@@ -72,23 +76,24 @@ public class MainActivity extends Activity {
 		ArrayList<IndividualDetailsCargo> currentindividulDetails;
 		ArrayList<IndividualDetailsCargo> individualDetailsCargo = individualDataDAO
 				.retrieveAllUsersdata();
-
-		for (IndividualDetailsCargo currentIndividualDetail : individualDetailsCargo) {
-			singleData = new HashMap<String, ArrayList<?>>();
-			currentindividulDetails = new ArrayList<IndividualDetailsCargo>();
-			currentindividulDetails.add(currentIndividualDetail);
-			if (individualDetailsCargo != null) {
-				singleData.put(BudgetSplitConstants.GROUP,
-						currentindividulDetails);
+		if (individualDetailsCargo != null) {
+			for (IndividualDetailsCargo currentIndividualDetail : individualDetailsCargo) {
+				singleData = new HashMap<String, ArrayList<?>>();
+				currentindividulDetails = new ArrayList<IndividualDetailsCargo>();
+				currentindividulDetails.add(currentIndividualDetail);
+				if (individualDetailsCargo != null) {
+					singleData.put(BudgetSplitConstants.GROUP,
+							currentindividulDetails);
+				}
+				ArrayList<TransactionDetailsCargo> transactionDetailsCargo = transactionDataDAO
+						.retrieveAllTransactionWithUser(currentIndividualDetail
+								.getUniqueUserId());
+				if (transactionDetailsCargo != null) {
+					singleData.put(BudgetSplitConstants.CHILD,
+							transactionDetailsCargo);
+				}
+				totalData.add(singleData);
 			}
-			ArrayList<TransactionDetailsCargo> transactionDetailsCargo = transactionDataDAO
-					.retrieveAllTransactionWithUser(currentIndividualDetail
-							.getUniqueUserId());
-			if (transactionDetailsCargo != null) {
-				singleData.put(BudgetSplitConstants.CHILD,
-						transactionDetailsCargo);
-			}
-			totalData.add(singleData);
 		}
 		transactionDataDAO.close();
 		individualDataDAO.close();
