@@ -7,8 +7,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 
 import com.prashanth.budget.R;
 import com.prashanth.budget.Constants.BudgetSplitConstants;
@@ -40,6 +42,7 @@ public class MainActivity extends Activity {
 		summaryCustomExpandableAdapter = new SummaryCustomExpandableAdapter(
 				context, totalData);
 		expandableList.setAdapter(summaryCustomExpandableAdapter);
+		
 	}
 
 	@Override
