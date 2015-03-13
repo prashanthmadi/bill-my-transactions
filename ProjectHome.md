@@ -1,0 +1,1 @@
+Using this app you can store all the transactions you made and know how much your friend need to give or take from you.
